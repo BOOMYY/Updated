@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<StackPane stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pawnshopsystem.StartFormController">
+   <children>
+      <AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="800.0">
+         <children>
+            <ImageView fitHeight="550.0" fitWidth="863.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/IM_main_bg.png" />
+               </image>
+            </ImageView>
+            <AnchorPane layoutX="258.0" layoutY="214.0" prefHeight="308.0" prefWidth="347.0" style="-fx-background-color: ffffff;" styleClass="card-semiround">
+               <children>
+                  <JFXTextField fx:id="usernameField" focusColor="#c6c36b" layoutX="96.0" layoutY="49.0" maxWidth="220.0" minWidth="180.0" prefHeight="31.0" prefWidth="180.0" promptText="Username" />
+                  <JFXTextField fx:id="passField" layoutX="96.0" layoutY="109.0" maxWidth="220.0" minWidth="180.0" prefHeight="31.0" prefWidth="180.0" promptText="Password" />
+                  <JFXButton fx:id="loginBtn" layoutX="99.0" layoutY="171.0" onAction="#loginBtn" prefHeight="31.0" prefWidth="150.0" styleClass="btn-login" text="Login" />
+                  <JFXButton fx:id="registerBtn" layoutX="99.0" layoutY="211.0" onAction="#registerBtn" prefHeight="33.0" prefWidth="150.0" styleClass="btn-login-negative" text="New Pawnbroker" />
+                  <JFXButton fx:id="adminBtn" layoutX="272.0" layoutY="264.0" onAction="#adminBtn" text="Admin">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </JFXButton>
+                  <ImageView fitHeight="31.0" fitWidth="25.0" layoutX="68.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/user.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="31.0" fitWidth="25.0" layoutX="68.0" layoutY="112.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/password.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <ImageView fitHeight="185.0" fitWidth="150.0" layoutX="357.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/frontdesk.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>

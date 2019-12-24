@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+
+<StackPane stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pawnshopsystem.NewPawnbroker">
+   <children>
+      <AnchorPane id="AnchorPane" prefHeight="520.0" prefWidth="720.0">
+         <children>
+            <AnchorPane prefHeight="520.0" prefWidth="720.0">
+               <children>
+                  <ImageView fitHeight="520.0" fitWidth="720.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/720by520.png" />
+                     </image>
+                  </ImageView>
+                  <AnchorPane layoutX="216.0" layoutY="14.0" prefHeight="69.0" prefWidth="289.0" style="-fx-background-color: #5a5a5a;" styleClass="card-semiround">
+                     <children>
+                        <ImageView fitHeight="55.0" fitWidth="59.0" layoutX="17.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/new-user-stroke.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="81.0" layoutY="17.0" text="New Pawnbroker" textFill="WHITE">
+                           <font>
+                              <Font name="Open Sans Semibold" size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="16.0" layoutY="100.0" prefHeight="398.0" prefWidth="356.0" style="-fx-background-color: #f4e3ff;" styleClass="card-semiround">
+                     <children>
+                        <Label layoutX="27.0" layoutY="118.0" text="First Name:">
+                           <font>
+                              <Font name="Open Sans Semibold" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="194.0" layoutY="118.0" text="Last Name:">
+                           <font>
+                              <Font name="Open Sans Semibold" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="27.0" layoutY="173.0" text="Address:">
+                           <font>
+                              <Font name="Open Sans Semibold" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="29.0" layoutY="309.0" text="Email:">
+                           <font>
+                              <Font name="Open Sans Semibold" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="192.0" layoutY="236.0" text="Mobile No.">
+                           <font>
+                              <Font name="Open Sans Semibold" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="27.0" layoutY="236.0" text="Gender:">
+                           <font>
+                              <Font name="Open Sans Semibold" size="13.0" />
+                           </font>
+                        </Label>
+                        <JFXTextField fx:id="fname_txtf" focusColor="#e27c39" layoutX="25.0" layoutY="136.0" maxWidth="226.0" minWidth="138.0" prefHeight="31.0" prefWidth="150.0" />
+                        <JFXTextField fx:id="lname_txtf" focusColor="#e27c39" layoutX="185.0" layoutY="136.0" maxWidth="226.0" minWidth="138.0" prefHeight="31.0" prefWidth="150.0" />
+                        <JFXTextField fx:id="address_txtf" focusColor="#e27c39" layoutX="25.0" layoutY="195.0" maxWidth="307.0" minWidth="203.0" prefHeight="31.0" prefWidth="307.0" />
+                        <JFXTextField fx:id="email_txtf" focusColor="#e27c39" layoutX="21.0" layoutY="327.0" maxWidth="313.0" minWidth="141.0" prefHeight="31.0" prefWidth="313.0" />
+                        <JFXTextField fx:id="mobilenum_txtf" focusColor="#e27c39" layoutX="186.0" layoutY="261.0" maxWidth="226.0" minWidth="131.0" onKeyTyped="#numOnly" prefHeight="31.0" prefWidth="150.0" />
+                        <JFXComboBox fx:id="gender_cbox" layoutX="27.0" layoutY="263.0" prefHeight="25.0" prefWidth="141.0" />
+                        <Label layoutX="79.0" layoutY="14.0" text="Personal Information">
+                           <font>
+                              <Font name="Open Sans Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Separator layoutY="42.0" prefHeight="0.0" prefWidth="356.0" />
+                        <Label layoutX="27.0" layoutY="51.0" text="Username:">
+                           <font>
+                              <Font name="Open Sans Semibold" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="194.0" layoutY="51.0" text="Password">
+                           <font>
+                              <Font name="Open Sans Semibold" size="13.0" />
+                           </font>
+                        </Label>
+                        <JFXTextField fx:id="uname_txtf" focusColor="#e27c39" layoutX="23.0" layoutY="69.0" maxWidth="226.0" minWidth="138.0" prefHeight="31.0" prefWidth="150.0" />
+                        <JFXTextField fx:id="password_txtf" focusColor="#e27c39" layoutX="186.0" layoutY="69.0" maxWidth="226.0" minWidth="138.0" prefHeight="31.0" prefWidth="150.0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="391.0" layoutY="100.0" prefHeight="398.0" prefWidth="313.0" styleClass="card-semiround">
+                     <children>
+                        <Pane layoutX="61.0" layoutY="34.0" prefHeight="150.0" prefWidth="191.0" style="-fx-background-color: #f4d1bc;" styleClass="card-semiround">
+                           <children>
+                              <ImageView fx:id="imageView" fitHeight="131.0" fitWidth="150.0" layoutX="21.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
+                           </children>
+                        </Pane>
+                        <JFXButton fx:id="ok_btn" layoutX="167.0" layoutY="341.0" onAction="#handleOkBtn" prefHeight="29.0" prefWidth="80.0" styleClass="btn-violet-dark" text="Save" />
+                        <Button fx:id="imageBtn" layoutX="99.0" layoutY="228.0" mnemonicParsing="false" onAction="#imageBtn" prefHeight="31.0" prefWidth="115.0" styleClass="btn-violet-dark" text="Choose Image" />
+                        <JFXButton fx:id="back_btn" layoutX="67.0" layoutY="340.0" onAction="#handleBackBtn" prefHeight="31.0" prefWidth="80.0" styleClass="btn-negative-dark" text="Back">
+                           <font>
+                              <Font name="Open Sans" size="14.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXTextArea fx:id="pathArea" layoutX="61.0" layoutY="185.0" maxWidth="191.0" minWidth="191.0" prefHeight="18.0" prefWidth="191.0" />
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>
