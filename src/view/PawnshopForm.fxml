@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+
+
+<StackPane stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PawnshopForm">
+   <children>
+      <AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="1000.0" stylesheets="@../style/style.css">
+         <children>
+            <ImageView fitHeight="700.0" fitWidth="1124.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/IM_start_bg.png" />
+               </image>
+            </ImageView>
+            <JFXTabPane layoutX="15.0" layoutY="81.0" prefHeight="568.0" prefWidth="996.0">
+               <tabs>
+                  <Tab text="Dashboard">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                  </Tab>
+                  <Tab text="Transaction">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                  </Tab>
+               </tabs>
+            </JFXTabPane>
+            <JFXButton fx:id="signOutBtn" layoutX="865.0" layoutY="652.0" onAction="#signOutBtn" prefHeight="38.0" prefWidth="130.0" styleClass="btn-login-negative" text="Sign Out" />
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>
