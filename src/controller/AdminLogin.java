@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pawnshopsystem;
+package controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -13,44 +14,46 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyEvent;
 
 /**
+ * FXML Controller class
  *
  * @author Gillian
  */
-public class StartFormController implements Initializable {
-    
-    @FXML
-    private JFXTextField usernameField;
+public class AdminLogin implements Initializable {
 
     @FXML
-    private JFXTextField passField;
-
+    private JFXTextField unameTxtf;
     @FXML
-    private JFXButton loginBtn;
-
+    private JFXPasswordField pwordTxtf;
     @FXML
-    private JFXButton registerBtn;
-
+    private JFXButton login_btn;
     @FXML
-    private JFXButton adminBtn;
-    
-    
+    private Label userlabel;
+    @FXML
+    private Label passlabel;
+    @FXML
+    private JFXButton backBtn;
+
+    /**
+     * Initializes the controller class.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
 
     @FXML
-    private void loginBtn(ActionEvent event) {
+    private void loginKey(KeyEvent event) {
     }
 
     @FXML
-    private void registerBtn(ActionEvent event) {
+    private void handleLoginBtn(ActionEvent event) {
     }
 
     @FXML
-    private void adminBtn(ActionEvent event) {
+    private void backBtn(ActionEvent event) {
     }
     
 }

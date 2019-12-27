@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<StackPane stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pawnshopsystem.NewPawnbroker">
+<StackPane stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.NewPawnbroker">
    <children>
       <AnchorPane id="AnchorPane" prefHeight="520.0" prefWidth="720.0">
          <children>
