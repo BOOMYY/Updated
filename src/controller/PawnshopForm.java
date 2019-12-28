@@ -6,6 +6,7 @@
 package controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -16,6 +17,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TableView;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 /**
@@ -27,6 +32,28 @@ public class PawnshopForm implements Initializable {
 
     @FXML
     private JFXButton signOutBtn;
+    @FXML
+    private JFXTextField fname_txtf;
+    @FXML
+    private JFXTextField lname_txtf;
+    @FXML
+    private JFXTextField address_txtf;
+    @FXML
+    private JFXTextField mobilenum_txtf;
+    @FXML
+    private JFXTextField otherIdNum_txtf;
+    @FXML
+    private JFXButton addCustomerBtn;
+    @FXML
+    private ImageView ivCustomer;
+    @FXML
+    private TableView<?> customerTbl;
+    @FXML
+    private Tab pawnItemTbl;
+    @FXML
+    private ImageView ivPawnItem;
+    @FXML
+    private JFXButton addItemBtn;
 
     /**
      * Initializes the controller class.
@@ -44,6 +71,18 @@ public class PawnshopForm implements Initializable {
         mainStage.setScene(changeFormScene);
         mainStage.centerOnScreen();
         mainStage.show();
+    }
+
+    @FXML
+    private void numOnly(KeyEvent event) {
+    }
+
+    @FXML
+    private void addCustomerBtn(ActionEvent event) {
+    }
+
+    @FXML
+    private void addItemBtn(ActionEvent event) {
     }
     
 }
