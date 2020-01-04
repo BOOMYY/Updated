@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -20,7 +22,6 @@
             <AnchorPane layoutX="258.0" layoutY="214.0" prefHeight="308.0" prefWidth="347.0" style="-fx-background-color: ffffff;" styleClass="card-semiround">
                <children>
                   <JFXTextField fx:id="usernameField" focusColor="#c6c36b" layoutX="96.0" layoutY="49.0" maxWidth="220.0" minWidth="180.0" prefHeight="31.0" prefWidth="180.0" promptText="Username" />
-                  <JFXTextField fx:id="passField" layoutX="96.0" layoutY="109.0" maxWidth="220.0" minWidth="180.0" prefHeight="31.0" prefWidth="180.0" promptText="Password" />
                   <JFXButton fx:id="loginBtn" layoutX="99.0" layoutY="171.0" onAction="#loginBtn" prefHeight="31.0" prefWidth="150.0" styleClass="btn-login" text="Login" />
                   <JFXButton fx:id="registerBtn" layoutX="99.0" layoutY="211.0" onAction="#registerBtn" prefHeight="33.0" prefWidth="150.0" styleClass="btn-login-negative" text="New Pawnbroker" />
                   <JFXButton fx:id="adminBtn" layoutX="272.0" layoutY="264.0" onAction="#adminBtn" text="Admin">
@@ -38,6 +39,17 @@
                         <Image url="@../images/password.png" />
                      </image>
                   </ImageView>
+                  <JFXPasswordField fx:id="passField" layoutX="97.0" layoutY="109.0" maxWidth="180.0" minWidth="180.0" prefHeight="31.0" prefWidth="180.0" promptText="Password" />
+                  <Label fx:id="userlabel" layoutX="111.0" layoutY="77.0" prefHeight="20.0" prefWidth="150.0" textFill="RED">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="passlabel" layoutX="117.0" layoutY="137.0" prefHeight="20.0" prefWidth="138.0" textFill="RED">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
                </children>
             </AnchorPane>
             <ImageView fitHeight="185.0" fitWidth="150.0" layoutX="357.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true">

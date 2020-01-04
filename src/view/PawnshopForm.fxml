@@ -16,7 +16,6 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-
 <StackPane stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PawnshopForm">
    <children>
       <AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="1000.0" stylesheets="@../style/style.css">
@@ -69,8 +68,10 @@
                                        </font>
                                     </Label>
                                     <JFXTextField fx:id="otherIdNum_txtf" focusColor="#e27c39" layoutX="135.0" layoutY="311.0" maxWidth="226.0" minWidth="131.0" onKeyTyped="#numOnly" prefHeight="31.0" prefWidth="220.0" />
-                                    <JFXButton fx:id="addCustomerBtn" layoutX="143.0" layoutY="355.0" onAction="#addCustomerBtn" styleClass="btn-violet-dark" text="Add Customer" />
-                                    <ImageView fx:id="ivCustomer" fitHeight="129.0" fitWidth="130.0" layoutX="129.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+                                    <JFXButton fx:id="addCustomerBtn" layoutX="245.0" layoutY="356.0" onAction="#addCustomerBtn" styleClass="btn-violet-dark" text="Add Customer" />
+                                    <ImageView fx:id="ivCustomer" fitHeight="106.0" fitWidth="130.0" layoutX="130.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+                                    <JFXTextField fx:id="pathArea" layoutX="121.0" layoutY="125.0" />
+                                    <Button fx:id="addImageBtn" layoutX="66.0" layoutY="359.0" mnemonicParsing="false" onAction="#addImageBtn" text="Add Image" />
                                  </children>
                               </AnchorPane>
                               <AnchorPane layoutX="75.0" layoutY="14.0" prefHeight="69.0" prefWidth="266.0" style="-fx-background-color: #5a5a5a;" styleClass="card-semiround">
