@@ -6,6 +6,7 @@
 package controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import java.awt.HeadlessException;
@@ -20,7 +21,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.HashSet;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,8 +37,11 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
@@ -58,14 +68,13 @@ public class PawnshopForm implements Initializable {
     private JFXTextField address_txtf;
     @FXML
     private JFXTextField mobilenum_txtf;
-    @FXML
     private JFXTextField otherIdNum_txtf;
     @FXML
     private JFXButton addCustomerBtn;
     @FXML
     private ImageView ivCustomer;
     @FXML
-    private TableView<?> customerTbl;
+    private TableView<CustomerList> customerTbl;
     @FXML
     private Tab pawnItemTbl;
     @FXML
@@ -80,13 +89,82 @@ public class PawnshopForm implements Initializable {
     private Image image;
     private File file;
     private Stage stage;
+    @FXML
+    private JFXTextField searchField;
+    @FXML
+    private Label customerCountLbl;
+    @FXML
+    private Label itemCountLbl;
+    @FXML
+    private TableView<?> dashTbl;
+
+    //for table Observable list (encapsulation)
+    ObservableList<CustomerList> customer_list = FXCollections.observableArrayList();
+    @FXML
+    private TableColumn<CustomerList, String> cusFnameCol;
+    @FXML
+    private TableColumn<CustomerList, String> cusLnameCol;
+    @FXML
+    private TableColumn<CustomerList, String> cusAddressCol;
+    @FXML
+    private TableColumn<CustomerList, String> cusMobileCol;
+
+    private Statement st;
+    private ResultSet rs;
+    private Connection con;
+    private PreparedStatement pst;
+    @FXML
+    private TableColumn<CustomerList, String> cusIdCol;
+    @FXML
+    private JFXDatePicker datePicker;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+
+        tblToFieldVoutList();
+
+        try {
+            HashSet<CustomerList> db = new HashSet<>();
+            con = DBconnect.connect();
+            CustomerList c;
+            st = con.createStatement();
+            rs = st.executeQuery("select * from Add_Customer");
+            while (rs.next()) {
+                int id = rs.getShort("id");
+                String fname = rs.getString("fname");
+                String lname = rs.getString("lname");
+                String address = rs.getString("address");
+                String mobile_num = rs.getString("mobile_num");
+                c = new CustomerList(id, fname, lname, address, mobile_num);
+                customer_list.add(c);
+                customerTbl.setItems(customer_list);
+            }
+
+            rs.close();
+            refreshCustomerTbl();
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERROR " + e);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PawnshopForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        //table in the customer
+        cusIdCol.setCellValueFactory(
+                new PropertyValueFactory<>("id"));
+        cusFnameCol.setCellValueFactory(
+                new PropertyValueFactory<>("fname"));
+        cusLnameCol.setCellValueFactory(
+                new PropertyValueFactory<>("lname"));
+        cusAddressCol.setCellValueFactory(
+                new PropertyValueFactory<>("address"));
+        cusMobileCol.setCellValueFactory(
+                new PropertyValueFactory<>("mobile_num"));
+        customerTbl.setItems(customer_list);
+
     }
 
     @FXML
@@ -107,7 +185,7 @@ public class PawnshopForm implements Initializable {
     private void addCustomerBtn(ActionEvent event) throws ClassNotFoundException, FileNotFoundException {
         try {
             if (fname_txtf.equals("") || lname_txtf.equals("") || address_txtf.equals("")
-                    || mobilenum_txtf.equals("") || otherIdNum_txtf.equals("") || pathArea.equals("")) {
+                    || mobilenum_txtf.equals("") || pathArea.equals("")) {
                 JOptionPane.showMessageDialog(null, "Incomplete Details!");
 //            } else {
 //                Connection con = DBconnect.connect();
@@ -118,34 +196,27 @@ public class PawnshopForm implements Initializable {
 //                    JOptionPane.showMessageDialog(null, "Mobile Number already exist!");
             } else {
                 Connection con = DBconnect.connect();
-                String insertQuery = "INSERT INTO add_customer (FirtName, LastName, Address, MobileNum, OtherID, Image) VALUES(?,?,?,?,?,?)";
+                String insertQuery = "INSERT INTO Add_Customer (fname, lname, address, mobile_num, image) VALUES(?,?,?,?,?)";
                 PreparedStatement pst = con.prepareStatement(insertQuery);
 
                 String fname = fname_txtf.getText();
                 String lname = lname_txtf.getText();
                 String address = address_txtf.getText();
                 String mobile_nos = mobilenum_txtf.getText();
-                String other_id_num = otherIdNum_txtf.getText();
 
                 pst.setString(1, fname);
                 pst.setString(2, lname);
                 pst.setString(3, address);
                 pst.setString(4, mobile_nos);
-                pst.setString(5, other_id_num);
 
                 FileInputStream fis = new FileInputStream(file);
-                pst.setBinaryStream(6, (InputStream) fis, (int) file.length());
+                pst.setBinaryStream(5, (InputStream) fis, (int) file.length());
 
                 ResultSet rs = pst.executeQuery();
                 JOptionPane.showMessageDialog(null, "New Customer Added");
 
-//                //transition to Existing Visitor Form    
-//                Parent changeToMain = FXMLLoader.load(getClass().getResource("/view/PawnShopForm.fxml"));
-//                Scene changeMainScene = new Scene(changeToMain);
-//                Stage mainStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//                mainStage.setScene(changeMainScene);
-//                mainStage.show();
-//                JOptionPane.showMessageDialog(null, "Successfully Registered!");
+                refreshCustomerTbl();
+                clearCustomerField();
             }
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, e);
@@ -158,8 +229,8 @@ public class PawnshopForm implements Initializable {
 
     @FXML
     private void addImageBtn(ActionEvent event) {
-        
-                try {
+
+        try {
             FileChooser fc = new FileChooser();
             file = fc.showOpenDialog(stage);
             if (file != null) {
@@ -178,8 +249,54 @@ public class PawnshopForm implements Initializable {
         } catch (HeadlessException e) {
             JOptionPane.showMessageDialog(null, e);
         }
-        
+
     }
-    
+
+    private void refreshCustomerTbl() throws ClassNotFoundException {
+        customer_list.clear();
+
+        try {
+            String dash_query = "select * from Add_Customer";
+            con = DBconnect.connect();
+            pst = con.prepareStatement(dash_query);
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                customer_list.add(new CustomerList(rs.getShort("id"), rs.getString("fname"),
+                        rs.getString("lname"), rs.getString("address"), rs.getString("mobile_num")));
+            }
+            customerTbl.setItems(customer_list);
+            pst.close();
+            rs.close();
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERROR" + e);
+        }
+    }
+
+    private void tblToFieldVoutList() {
+        try {
+
+            customerTbl.setOnMouseClicked((javafx.scene.input.MouseEvent event) -> {
+                CustomerList customerList = customerTbl.getSelectionModel().getSelectedItem();
+                //VisitorOutList vOutList = vTime_OutTbl.getItems().get(vTime_OutTbl.getSelectionModel().getSelectedIndex());
+                //NoTxt.setText(vOutList.getNo());
+                fname_txtf.setText(customerList.getFname());
+                lname_txtf.setText(customerList.getLname());
+                address_txtf.setText(customerList.getAddress());
+                mobilenum_txtf.setText(customerList.getMobile_num());
+            });
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "ERROR" + e);
+        }
+    }
+
+    private void clearCustomerField() {
+        fname_txtf.setText("");
+        lname_txtf.setText("");
+        address_txtf.setText("");
+        mobilenum_txtf.setText("");
+        pathArea.setText("");
+    }
 
 }
