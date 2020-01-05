@@ -218,7 +218,7 @@ public class PawnshopForm implements Initializable {
             clearCustomerField();
 
         } catch (HeadlessException | SQLException e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "ERROR" + e);
         }
     }
 
