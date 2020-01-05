@@ -10,14 +10,14 @@ package controller;
  * @author Gillian
  */
 public class CustomerList {
-    
-    private int id;
+
+    private String id;
     private String fname;
     private String lname;
     private String address;
     private String mobile_num;
 
-    public CustomerList(int id, String fname, String lname, String address, String mobile_num) {
+    public CustomerList(String id, String fname, String lname, String address, String mobile_num) {
         this.id = id;
         this.fname = fname;
         this.lname = lname;
@@ -30,6 +30,14 @@ public class CustomerList {
         this.lname = lname;
         this.address = address;
         this.mobile_num = mobile_num;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getFname() {
@@ -63,7 +71,5 @@ public class CustomerList {
     public void setMobile_num(String mobile_num) {
         this.mobile_num = mobile_num;
     }
-    
-    
-    
+
 }
