@@ -15,9 +15,11 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<StackPane stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PawnshopForm">
+<StackPane stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PawnshopForm">
    <children>
       <AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="1000.0" stylesheets="@../style/style.css">
          <children>
@@ -158,9 +160,24 @@
                                     <JFXTextField fx:id="address_txtf" focusColor="#e27c39" layoutX="135.0" layoutY="231.0" maxWidth="307.0" minWidth="203.0" prefHeight="31.0" prefWidth="220.0" />
                                     <JFXTextField fx:id="mobilenum_txtf" focusColor="#e27c39" layoutX="135.0" layoutY="272.0" maxWidth="226.0" minWidth="131.0" onKeyTyped="#numOnly" prefHeight="31.0" prefWidth="220.0" />
                                     <JFXButton fx:id="addCustomerBtn" layoutX="245.0" layoutY="356.0" onAction="#addCustomerBtn" styleClass="btn-violet-dark" text="Add Customer" />
-                                    <ImageView fx:id="ivCustomer" fitHeight="106.0" fitWidth="130.0" layoutX="130.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
-                                    <JFXTextField fx:id="pathArea" layoutX="121.0" layoutY="125.0" />
+                                    <ImageView fx:id="ivCustomer" fitHeight="88.0" fitWidth="130.0" layoutX="130.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+                                    <JFXTextField fx:id="pathArea" layoutX="113.0" layoutY="100.0" minWidth="187.0" prefHeight="9.0" prefWidth="187.0" />
                                     <Button fx:id="addImageBtn" layoutX="66.0" layoutY="359.0" mnemonicParsing="false" onAction="#addImageBtn" text="Add Image" />
+                                    <Label layoutX="28.0" layoutY="138.0" prefHeight="19.0" prefWidth="82.0" text="Customer ID">
+                                       <font>
+                                          <Font name="Open Sans Semibold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <JFXTextField fx:id="customer_id" layoutX="131.0" layoutY="129.0" maxWidth="246.0" minWidth="138.0" prefHeight="37.0" prefWidth="223.0">
+                                       <focusColor>
+                                          <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                                             <stops>
+                                                <Stop color="BLACK" />
+                                                <Stop color="WHITE" offset="1.0" />
+                                             </stops>
+                                          </RadialGradient>
+                                       </focusColor>
+                                    </JFXTextField>
                                  </children>
                               </AnchorPane>
                               <AnchorPane layoutX="75.0" layoutY="14.0" prefHeight="69.0" prefWidth="266.0" style="-fx-background-color: #5a5a5a;" styleClass="card-semiround">
@@ -177,15 +194,21 @@
                                     </Label>
                                  </children>
                               </AnchorPane>
-                              <TableView fx:id="customerTbl" layoutX="425.0" layoutY="14.0" prefHeight="499.0" prefWidth="555.0">
+                              <TableView fx:id="customerTbl" layoutX="415.0" layoutY="14.0" prefHeight="400.0" prefWidth="569.0">
                                 <columns>
                                     <TableColumn fx:id="cusIdCol" prefWidth="75.0" text="id" />
-                                  <TableColumn fx:id="cusFnameCol" prefWidth="75.0" text="First Name" />
-                                  <TableColumn fx:id="cusLnameCol" prefWidth="75.0" text="Last Name" />
-                                    <TableColumn fx:id="cusAddressCol" prefWidth="75.0" text="Address" />
-                                    <TableColumn fx:id="cusMobileCol" prefWidth="75.0" text="Mobile Number" />
+                                  <TableColumn fx:id="cusFnameCol" prefWidth="101.0" text="First Name" />
+                                  <TableColumn fx:id="cusLnameCol" prefWidth="148.0" text="Last Name" />
+                                    <TableColumn fx:id="cusAddressCol" prefWidth="90.0" text="Address" />
+                                    <TableColumn fx:id="cusMobileCol" prefWidth="151.0" text="Mobile Number" />
                                 </columns>
                               </TableView>
+                              <AnchorPane layoutX="410.0" layoutY="420.0" prefHeight="91.0" prefWidth="581.0" styleClass="card-semiround">
+                                 <children>
+                                    <JFXButton layoutX="98.0" layoutY="22.0" onAction="#deleteBut" prefHeight="55.0" prefWidth="88.0" text="DELETE" />
+                                    <JFXButton layoutX="295.0" layoutY="34.0" onAction="#updateBut" prefHeight="31.0" prefWidth="99.0" text="UPDATE" />
+                                 </children>
+                              </AnchorPane>
                            </children>
                         </AnchorPane>
                     </content>
