@@ -64,14 +64,14 @@ public class AdminLogin implements Initializable {
     @FXML
     private void handleLoginBtn(ActionEvent event) throws SQLException, ClassNotFoundException, IOException {
         try {
-            if(unameTxtf.getText().trim().isEmpty() && pwordTxtf.getText().trim().isEmpty()){
+            if (unameTxtf.getText().trim().isEmpty() && pwordTxtf.getText().trim().isEmpty()) {
                 userlabel.setVisible(true);
                 passlabel.setVisible(true);
                 userlabel.setText("username is empty");
                 passlabel.setText("password is empty");
                 JOptionPane.showMessageDialog(null, "username or password is empty");
             }
-            if(unameTxtf.getText().trim().isEmpty()){
+            if (unameTxtf.getText().trim().isEmpty()) {
                 userlabel.setVisible(true);
                 userlabel.setText("username is empty");
                 JOptionPane.showMessageDialog(null, "username is empty");
@@ -79,19 +79,19 @@ public class AdminLogin implements Initializable {
                 userlabel.setVisible(true);
                 userlabel.setText("username is empty");
 
-             } else if (pwordTxtf.getText().trim().isEmpty()) {
+            } else if (pwordTxtf.getText().trim().isEmpty()) {
                 passlabel.setVisible(true);
                 passlabel.setText("password is empty");
                 JOptionPane.showMessageDialog(null, "password is empty");
-                  } else {
-            Connection con = DBconnect.connect();
-            String sq1 = "SELECT * FROM admin_table where username=? and password=?";
-            PreparedStatement pst = con.prepareStatement(sq1);
-            pst.setString(1, unameTxtf.getText());
-            pst.setString(2, pwordTxtf.getText());
-            ResultSet rs = pst.executeQuery();
-            if(rs.next()){
-               Parent changeToVform = FXMLLoader.load(getClass().getResource("/view/PawnshopForm.fxml"));
+            } else {
+                Connection con = DBconnect.connect();
+                String sq1 = "SELECT * FROM New_PawnBroker where Username=? and Password=?";
+                PreparedStatement pst = con.prepareStatement(sq1);
+                pst.setString(1, unameTxtf.getText());
+                pst.setString(2, pwordTxtf.getText());
+                ResultSet rs = pst.executeQuery();
+                if (rs.next()) {
+                    Parent changeToVform = FXMLLoader.load(getClass().getResource("/view/PawnshopForm.fxml"));
                     Scene changeVformScene = new Scene(changeToVform);
                     Stage mainStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     mainStage.centerOnScreen();

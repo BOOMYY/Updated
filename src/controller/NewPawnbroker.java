@@ -47,7 +47,7 @@ import javax.swing.JOptionPane;
  * @author Gillian
  */
 public class NewPawnbroker implements Initializable {
-
+    
     @FXML
     private JFXTextField fname_txtf;
     @FXML
@@ -88,11 +88,11 @@ public class NewPawnbroker implements Initializable {
                 "Male", "Female"
         );
     }
-
+    
     @FXML
     private void numOnly(KeyEvent event) {
     }
-
+    
     @FXML
     private void handleOkBtn(ActionEvent event) throws ClassNotFoundException, SQLException, FileNotFoundException, IOException {
         try {
@@ -128,26 +128,26 @@ public class NewPawnbroker implements Initializable {
                 pst.setString(8, mobile_nos);
                 FileInputStream fis = new FileInputStream(file);
                 pst.setBinaryStream(9, (InputStream) fis, (int) file.length());
-                ResultSet rs = pst.executeQuery();
+                pst.executeUpdate();
                 JOptionPane.showMessageDialog(null, "New Pawn Broker");
+                JOptionPane.showMessageDialog(null, "Successfully Registered!");
+                clearCustomerField();
 
                 //transition to Existing Visitor Form    
-                Parent changeToMain = FXMLLoader.load(getClass().getResource("/view/PawnShopForm.fxml"));
-                Scene changeMainScene = new Scene(changeToMain);
-                Stage mainStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                mainStage.setScene(changeMainScene);
-                mainStage.show();
-                JOptionPane.showMessageDialog(null, "Successfully Registered!");
-
+//                Parent changeToMain = FXMLLoader.load(getClass().getResource("AdminLogin.fxml"));
+//                Scene changeMainScene = new Scene(changeToMain);
+//                Stage mainStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//                mainStage.setScene(changeMainScene);
+//                mainStage.show();
             }
         } catch (HeadlessException | IOException | SQLException e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, e + "ERROR");
         }
     }
-
+    
     @FXML
     private void imageBtn(ActionEvent event) {
-
+        
         try {
             FileChooser fc = new FileChooser();
             file = fc.showOpenDialog(stage);
@@ -159,7 +159,7 @@ public class NewPawnbroker implements Initializable {
                     bf = ImageIO.read(file);
                     WritableImage newImage = SwingFXUtils.toFXImage(bf, null);
                     imageView.setImage(image);
-
+                    
                 } catch (IOException e) {
                     JOptionPane.showMessageDialog(null, e);
                 }
@@ -168,7 +168,19 @@ public class NewPawnbroker implements Initializable {
             JOptionPane.showMessageDialog(null, e);
         }
     }
-
+    
+    private void clearCustomerField() {
+        uname_txtf.setText("");
+        password_txtf.setText("");
+        fname_txtf.setText("");
+        lname_txtf.setText("");
+        address_txtf.setText("");
+        gender_cbox.setValue("");
+        mobilenum_txtf.setText("");
+        pathArea.setText("");
+        imageView.setDisable(false);
+    }
+    
     @FXML
     private void handleBackBtn(ActionEvent event) throws IOException {
         Parent changeToForm = FXMLLoader.load(getClass().getResource("/view/StartForm.fxml"));
@@ -178,5 +190,5 @@ public class NewPawnbroker implements Initializable {
         mainStage.centerOnScreen();
         mainStage.show();
     }
-
+    
 }
