@@ -47,7 +47,7 @@ import javax.swing.JOptionPane;
  * @author Gillian
  */
 public class NewPawnbroker implements Initializable {
-    
+
     @FXML
     private JFXTextField fname_txtf;
     @FXML
@@ -88,11 +88,11 @@ public class NewPawnbroker implements Initializable {
                 "Male", "Female"
         );
     }
-    
+
     @FXML
     private void numOnly(KeyEvent event) {
     }
-    
+
     @FXML
     private void handleOkBtn(ActionEvent event) throws ClassNotFoundException, SQLException, FileNotFoundException, IOException {
         try {
@@ -144,10 +144,10 @@ public class NewPawnbroker implements Initializable {
             JOptionPane.showMessageDialog(null, e + "ERROR");
         }
     }
-    
+
     @FXML
     private void imageBtn(ActionEvent event) {
-        
+
         try {
             FileChooser fc = new FileChooser();
             file = fc.showOpenDialog(stage);
@@ -159,7 +159,7 @@ public class NewPawnbroker implements Initializable {
                     bf = ImageIO.read(file);
                     WritableImage newImage = SwingFXUtils.toFXImage(bf, null);
                     imageView.setImage(image);
-                    
+
                 } catch (IOException e) {
                     JOptionPane.showMessageDialog(null, e);
                 }
@@ -168,7 +168,7 @@ public class NewPawnbroker implements Initializable {
             JOptionPane.showMessageDialog(null, e);
         }
     }
-    
+
     private void clearCustomerField() {
         uname_txtf.setText("");
         password_txtf.setText("");
@@ -178,9 +178,8 @@ public class NewPawnbroker implements Initializable {
         gender_cbox.setValue("");
         mobilenum_txtf.setText("");
         pathArea.setText("");
-        imageView.setDisable(false);
     }
-    
+
     @FXML
     private void handleBackBtn(ActionEvent event) throws IOException {
         Parent changeToForm = FXMLLoader.load(getClass().getResource("/view/StartForm.fxml"));
@@ -190,5 +189,5 @@ public class NewPawnbroker implements Initializable {
         mainStage.centerOnScreen();
         mainStage.show();
     }
-    
+
 }

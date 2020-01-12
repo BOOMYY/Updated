@@ -80,7 +80,7 @@
                                           <Font name="Open Sans" size="21.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="customerCountLbl" layoutX="101.0" layoutY="60.0" text="Count" textFill="#502e66">
+                                    <Label id="totalCount" fx:id="customerCountLbl" layoutX="101.0" layoutY="60.0" text="Count" textFill="#502e66">
                                        <font>
                                           <Font name="Open Sans" size="41.0" />
                                        </font>
@@ -266,10 +266,14 @@
                                     <JFXDatePicker fx:id="datePicker" layoutX="118.0" layoutY="385.0" prefHeight="31.0" prefWidth="222.0" />
                                  </children>
                               </AnchorPane>
-                              <TableView layoutX="420.0" layoutY="21.0" prefHeight="482.0" prefWidth="561.0">
+                              <TableView fx:id="tableCustomer" layoutX="420.0" layoutY="21.0" prefHeight="482.0" prefWidth="561.0">
                                 <columns>
-                                  <TableColumn prefWidth="75.0" text="C1" />
-                                  <TableColumn prefWidth="75.0" text="C2" />
+                                  <TableColumn fx:id="column_id" prefWidth="108.0" text="Customer ID" />
+                                  <TableColumn fx:id="column_name" prefWidth="68.0" text="Name" />
+                                    <TableColumn fx:id="column_item" prefWidth="72.0" text="Item" />
+                                    <TableColumn fx:id="column_model" minWidth="6.0" prefWidth="102.0" text="Model" />
+                                    <TableColumn fx:id="column_price" prefWidth="99.0" text="Price" />
+                                    <TableColumn fx:id="column_date" prefWidth="110.0" text="Date" />
                                 </columns>
                               </TableView>
                            </children>

@@ -58,7 +58,7 @@ import javax.swing.JOptionPane;
  * @author Gillian
  */
 public class PawnshopForm implements Initializable {
-    
+
     @FXML
     private JFXButton signOutBtn;
     @FXML
@@ -85,7 +85,7 @@ public class PawnshopForm implements Initializable {
     private JFXTextField pathArea;
     @FXML
     private Button addImageBtn;
-    
+
     private Image image;
     private File file;
     private Stage stage;
@@ -100,6 +100,8 @@ public class PawnshopForm implements Initializable {
 
     //for table Observable list (encapsulation)
     ObservableList<CustomerList> customer_list = FXCollections.observableArrayList();
+    ObservableList<ItemList> item_list = FXCollections.observableArrayList();
+
     @FXML
     private TableColumn<CustomerList, String> cusFnameCol;
     @FXML
@@ -108,7 +110,7 @@ public class PawnshopForm implements Initializable {
     private TableColumn<CustomerList, String> cusAddressCol;
     @FXML
     private TableColumn<CustomerList, String> cusMobileCol;
-    
+
     private Statement st;
     private ResultSet rs;
     private Connection con;
@@ -119,21 +121,83 @@ public class PawnshopForm implements Initializable {
     private JFXDatePicker datePicker;
     @FXML
     private JFXTextField customer_id;
+    @FXML
+    private TableColumn<ItemList, String> column_id;
+    @FXML
+    private TableColumn<ItemList, String> column_name;
+    @FXML
+    private TableColumn<ItemList, String> column_item;
+    @FXML
+    private TableColumn<ItemList, String> column_model;
+    @FXML
+    private TableColumn<ItemList, String> column_price;
+    @FXML
+    private TableColumn<ItemList, String> column_date;
+    @FXML
+    private TableView<ItemList> tableCustomer;
 
     /**
      * Initializes the controller class.
+     *
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         customer_id.setEditable(false);
         tblToFieldVoutList();
-        
+
+        /**
+         * TOTAL COUNT CUSTOMER
+         */
+//        try {
+//            String count = "SELECT COUNT('id') FROM Add_Customer;";
+//            con = DBconnect.connect();
+//            pst = con.prepareStatement(count);
+//            rs = pst.executeQuery();
+//            if (rs.next()) {
+//                String sum = rs.getString("COUNT('id')");
+//                customerCountLbl.setText(sum.trim());
+//            }
+//        } catch (ClassNotFoundException | SQLException e) {
+//            JOptionPane.showMessageDialog(null, "ERROR" + e);
+//        }
+        /**
+         * SHOW THE DATA FROM THE TABLE ITEM
+         */
+        try {
+            HashSet<ItemList> iL = new HashSet<>();
+            con = DBconnect.connect();
+            ItemList item;
+            st = con.createStatement();
+            rs = st.executeQuery("SELECT * FROM Add_Item_Custmer");
+            while (rs.next()) {
+                String id = rs.getString("customer_id");
+                String name = rs.getString("Name");
+                String items = rs.getString("Item");
+                String model = rs.getString("Model");
+                String price = rs.getString("Price");
+                String date = rs.getString("Date");
+                item = new ItemList(id, name, items, model, price, date);
+                iL.add(item);
+                tableCustomer.setItems(item_list);
+            }
+            rs.close();
+            refreshCustomerTbl();
+
+        } catch (ClassNotFoundException | SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERROR" + e);
+        }
+
+        /**
+         * SHOW THE DATA FROM THE TABLE CUSTOMER
+         */
         try {
             HashSet<CustomerList> db = new HashSet<>();
             con = DBconnect.connect();
             CustomerList c;
             st = con.createStatement();
-            rs = st.executeQuery("select * from Add_Customer");
+            rs = st.executeQuery("SELECT * FROM Add_Customer");
             while (rs.next()) {
                 String id = rs.getString("id");
                 String fname = rs.getString("fname");
@@ -146,7 +210,7 @@ public class PawnshopForm implements Initializable {
             }
             rs.close();
             refreshCustomerTbl();
-            
+
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "ERROR " + e);
         } catch (ClassNotFoundException ex) {
@@ -165,9 +229,24 @@ public class PawnshopForm implements Initializable {
         cusMobileCol.setCellValueFactory(
                 new PropertyValueFactory<>("mobile_num"));
         customerTbl.setItems(customer_list);
-        
+
+        // table in the Item
+        column_id.setCellValueFactory(
+                new PropertyValueFactory<>("id"));
+        column_name.setCellValueFactory(
+                new PropertyValueFactory<>("Name"));
+        column_item.setCellValueFactory(
+                new PropertyValueFactory<>("Item"));
+        column_model.setCellValueFactory(
+                new PropertyValueFactory<>("Model"));
+        column_price.setCellValueFactory(
+                new PropertyValueFactory<>("Price"));
+        column_date.setCellValueFactory(
+                new PropertyValueFactory<>("Date"));
+        customerTbl.setItems(customer_list);
+
     }
-    
+
     @FXML
     private void signOutBtn(ActionEvent event) throws IOException {
         Parent changeToForm = FXMLLoader.load(getClass().getResource("/view/StartForm.fxml"));
@@ -177,18 +256,18 @@ public class PawnshopForm implements Initializable {
         mainStage.centerOnScreen();
         mainStage.show();
     }
-    
+
     @FXML
     private void numOnly(KeyEvent event) {
     }
-    
+
     @FXML
     private void addCustomerBtn(ActionEvent event) throws ClassNotFoundException, FileNotFoundException {
         String fname = fname_txtf.getText();
         String lname = lname_txtf.getText();
         String address = address_txtf.getText();
         String mobile_nos = mobilenum_txtf.getText();
-        
+
         try {
             if (fname.equals("") || lname_txtf.equals("") || address.equals("")
                     || mobile_nos.equals("") || pathArea.equals("")) {
@@ -204,7 +283,7 @@ public class PawnshopForm implements Initializable {
                 con = DBconnect.connect();
                 String insertQuery = "INSERT INTO add_customer (fname, lname, address, mobile_num, image) VALUES(?,?,?,?,?)";
                 pst = con.prepareStatement(insertQuery);
-                
+
                 pst.setString(1, fname);
                 pst.setString(2, lname);
                 pst.setString(3, address);
@@ -216,19 +295,19 @@ public class PawnshopForm implements Initializable {
             }
             refreshCustomerTbl();
             clearCustomerField();
-            
+
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "ERROR" + e);
         }
     }
-    
+
     @FXML
     private void addItemBtn(ActionEvent event) {
     }
-    
+
     @FXML
     private void addImageBtn(ActionEvent event) {
-        
+
         try {
             FileChooser fc = new FileChooser();
             file = fc.showOpenDialog(stage);
@@ -240,7 +319,7 @@ public class PawnshopForm implements Initializable {
                     bf = ImageIO.read(file);
                     WritableImage newImage = SwingFXUtils.toFXImage(bf, null);
                     ivCustomer.setImage(image);
-                    
+
                 } catch (IOException e) {
                     JOptionPane.showMessageDialog(null, e);
                 }
@@ -248,18 +327,18 @@ public class PawnshopForm implements Initializable {
         } catch (HeadlessException e) {
             JOptionPane.showMessageDialog(null, e);
         }
-        
+
     }
-    
+
     private void refreshCustomerTbl() throws ClassNotFoundException {
         customer_list.clear();
-        
+
         try {
             String dash_query = "SELECT * FROM Add_Customer";
             con = DBconnect.connect();
             pst = con.prepareStatement(dash_query);
             rs = pst.executeQuery();
-            
+
             while (rs.next()) {
                 customer_list.add(new CustomerList(rs.getString("id"), rs.getString("fname"),
                         rs.getString("lname"), rs.getString("address"), rs.getString("mobile_num")));
@@ -267,15 +346,15 @@ public class PawnshopForm implements Initializable {
             customerTbl.setItems(customer_list);
             pst.close();
             rs.close();
-            
+
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "ERROR" + e);
         }
     }
-    
+
     private void tblToFieldVoutList() {
         try {
-            
+
             customerTbl.setOnMouseClicked((javafx.scene.input.MouseEvent event) -> {
                 CustomerList customerList = customerTbl.getSelectionModel().getSelectedItem();
                 //VisitorOutList vOutList = vTime_OutTbl.getItems().get(vTime_OutTbl.getSelectionModel().getSelectedIndex());
@@ -286,13 +365,13 @@ public class PawnshopForm implements Initializable {
                 address_txtf.setText(customerList.getAddress());
                 mobilenum_txtf.setText(customerList.getMobile_num());
                 showImage(customerList.getId());
-                
+
             });
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "ERROR" + e);
         }
     }
-    
+
     private void clearCustomerField() {
         customer_id.setText("");
         fname_txtf.setText("");
@@ -301,7 +380,7 @@ public class PawnshopForm implements Initializable {
         mobilenum_txtf.setText("");
         pathArea.setText("");
     }
-    
+
     @FXML
     private void deleteBut(ActionEvent event) throws ClassNotFoundException, SQLException {
         try {
@@ -321,10 +400,10 @@ public class PawnshopForm implements Initializable {
             clearCustomerField();
         } catch (HeadlessException e) {
             JOptionPane.showMessageDialog(null, "ERROR" + e);
-            
+
         }
     }
-    
+
     @FXML
     private void updateBut(ActionEvent event) throws SQLException, ClassNotFoundException {
         String id = customer_id.getText();
@@ -353,12 +432,12 @@ public class PawnshopForm implements Initializable {
             }
             clearCustomerField();
             refreshCustomerTbl();
-            
+
         } catch (HeadlessException e) {
             JOptionPane.showMessageDialog(null, "ERROR" + e);
         }
     }
-    
+
     private void showImage(String barcode) {
         try {
             con = DBconnect.connect();
@@ -373,17 +452,17 @@ public class PawnshopForm implements Initializable {
                 int size = 0;
                 while ((size = is.read(contents)) != -1) {
                     os.write(contents, 0, size);
-                    
+
                 }
-                Image image = new Image("file:photo.jpg", ivCustomer.getFitWidth(), ivCustomer.getFitHeight(), true, true);
-                ivCustomer.setImage(image);
-                
+                Image images = new Image("file:photo.jpg", ivCustomer.getFitWidth(), ivCustomer.getFitHeight(), true, true);
+                ivCustomer.setImage(images);
+
             }
             refreshCustomerTbl();
         } catch (IOException | ClassNotFoundException | SQLException e) {
             JOptionPane.showMessageDialog(null, "ERROR" + e);
-            
+
         }
     }
-    
+
 }
